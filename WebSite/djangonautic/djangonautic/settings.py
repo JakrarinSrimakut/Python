@@ -119,3 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Static files will be found at djangonautic/assets where BASE_DIR=djangonautic
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'assets'),
+)
