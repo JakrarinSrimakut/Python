@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'articles',
+    'accounts', # py -3 manage.py startapp accounts into terminal
 ]
 
 MIDDLEWARE = [
