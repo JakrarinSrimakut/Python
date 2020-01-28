@@ -22,6 +22,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from . import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static # allows django to serve media files
+from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -31,3 +33,4 @@ urlpatterns = [
 ]
 
 urlpatterns += staticfiles_urlpatterns() #check if we're in debug mode then serve static files
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #Serve media url and path to folder
