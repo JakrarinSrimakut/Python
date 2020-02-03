@@ -23,7 +23,10 @@ def login_view(request):
             # log in user
             user = form.get_user() # extract user from authenticated form
             login(request, user)
-            return redirect('articles:list')
+            if 'next' in request.POST: # if a next value exist from url of login.html, once login redirect to previous page before login
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('articles:list')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form':form}) # like def sign_up if authen POST fail send error to this render
