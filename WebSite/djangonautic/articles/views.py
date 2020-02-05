@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Article
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required #decorators extends functions
+from .import forms
 
 # Create your views here.
 def article_list(request):
@@ -16,4 +17,12 @@ def article_detail(request, slug): #slug pass from url name capture group ?P<slu
 #Ensure login to access article_create redirect to login page if not
 @login_required(login_url="/accounts/login")
 def article_create(request):
-    return render(request, 'articles/article_create.html')
+    if request.method == 'POST':
+        form = forms.CreateArticle(request.POST, request.FILES) # request.POST data is validating to CreateArticle Model Form like user creation form
+                                                                # request.FILES contain the actual data content
+        if form.is_valid():
+            # save article to db
+            return redirect('articles:list')
+    else:
+        form = forms.CreateArticle()
+    return render(request, 'articles/article_create.html', {'form':form})
